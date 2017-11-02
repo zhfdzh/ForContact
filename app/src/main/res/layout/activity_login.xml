@@ -20,10 +20,14 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/userName"
+                android:maxLength="15"
+                android:digits="@string/username_password_roles"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
@@ -46,7 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp">
             <EditText
+                android:inputType="textPassword"
                 android:id="@+id/password"
+                android:digits="@string/username_password_roles"
+                android:maxLength="15"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
@@ -66,13 +73,14 @@
 
         <Button
             android:clickable="true"
+            android:enabled="true"
             android:id="@+id/app_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/login_button_style"
+            android:background="@drawable/login_button_style_gray"
             android:text="@string/login"/>
 
     </LinearLayout>
@@ -113,16 +121,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/wecaht_login"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/wechat_icon"/>
             <ImageView
+                android:id="@+id/qq_login"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/qq_icon"/>
             <ImageView
+                android:id="@+id/weibo_login"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/webo_icon"/>

@@ -3,5 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="color_login_button_bg">#9983CC39</color>
+    <color name="color_login_button_bg_gray">#cccccc</color>
+    <color name="color_login_button_bg">#54BA42</color>
+    <color name="color_login_button_pressed_bg">#9983CC39</color>
+    <color name="color_login_theme">#54BA42</color>
 </resources>

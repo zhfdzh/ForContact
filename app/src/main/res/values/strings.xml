@@ -24,4 +24,6 @@
     <string name="passWord">密码</string>
     <string name="login">登录</string>
     <string name="third_account_login">第三方登录</string>
+    <string name="back">返回</string>
+    <string name="username_password_roles">0123456789abcdefghijklmnopqrstuvwxyzZXCVBNMLKJHGFDSAQWERTYUIOP</string>
 </resources>

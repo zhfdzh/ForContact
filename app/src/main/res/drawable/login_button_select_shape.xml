@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_focused="false" android:state_pressed="true" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/color_login_button_pressed_bg" />
+            <corners android:radius="10dip"/>
+            <stroke
+                android:width="1dip"
+                />
+        </shape>
+    </item>
+    <item android:state_focused="true" android:state_pressed="true" >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/color_login_button_pressed_bg" />
+            <corners android:radius="10dip"/>
+            <stroke
+                android:width="1dip"
+                />
+        </shape>
+    </item>
+
+<!--默认的要写在最后面-->
+    <item >
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/color_login_button_bg" />
+            <corners android:radius="10dip"/>
+            <stroke
+                android:width="1dip"
+                />
+        </shape>
+    </item>
+</selector>

@@ -4,5 +4,5 @@
     <corners android:radius="10dip"/>
     <stroke
         android:width="1dip"
-        android:color="#0045ff" />
+        android:color= "@color/color_login_theme" />
 </shape>

@@ -14,6 +14,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!--透明状态栏-->
@@ -22,6 +23,28 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--// 设置登录界面的主题-->
+    <style name="login_theme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/login_actionbar_style</item>
+        <item name="android:statusBarColor">@color/color_login_theme</item>   <!--设置状态栏颜色-->
+
+    </style>
+
+    <style name="login_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/color_login_theme</item>
+        <item name="android:backgroundStacked">@color/color_login_theme</item>
+        <item name="android:homeAsUpIndicator">@drawable/webo_icon
+        </item>     <!--// 自定义返回按钮图片，也可以在anctivity代码设置-->
+        <item name="android:titleTextStyle">@style/actionBarTitle</item> <!--设置titleTextStyle-->
+    </style>
+
+    <style name="actionBarTitle">
+        <item name="android:textColor">#eeeeee</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginLeft">20dp</item>
     </style>
 
 </resources>
