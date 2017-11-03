@@ -14,16 +14,10 @@
     tools:context="com.example.zhf.forcontact.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <!--<com.baidu.mapapi.map.MapView
+    <com.baidu.mapapi.map.MapView
         android:id="@+id/baiduMapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"/>-->
-
-    <TextView
-        android:background="@color/color_login_button_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="faefasef23rfdfcwae"/>
+        android:clickable="true"/>
 
 </RelativeLayout>
