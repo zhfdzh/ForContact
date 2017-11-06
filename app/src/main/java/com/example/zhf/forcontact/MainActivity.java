@@ -1,24 +1,37 @@
 package com.example.zhf.forcontact;
 
+import android.content.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.view.*;
 import android.support.v4.widget.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
+import android.support.v7.widget.Toolbar;
 import android.util.*;
 import android.view.*;
+import android.widget.*;
 
 import com.baidu.location.*;
 import com.baidu.mapapi.*;
 import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.*;
+import com.example.zhf.forcontact.util.GlobleVariable;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private static String TAG = "mainactivity";
+    private Toolbar mToolbar;
+    private NavigationView mNavgationView;
+    private ImageView mNavHeadPic;
+    private LinearLayout mNavHeadLinearlayout;
+    private FloatingActionButton mFloatingActionButton;
+    private  DrawerLayout mDrawerLayout;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
+
     private boolean mIsFirstLocate = true;
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
@@ -27,23 +40,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         mLocationClient = new LocationClient(getApplicationContext());           //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);                     //注册监听函数
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());               // 使用baidumap需要初始化
+
         setContentView(R.layout.activity_main);
+
         initView(null);
-        //获取地图控件引用
-        mMapView = (MapView) findViewById(R.id.baiduMapView);
+        mMapView = (MapView) findViewById(R.id.baiduMapView);            //获取地图控件引用
         mBaiduMap = mMapView.getMap();
         initLocation();
-        mLocationClient.start();
+        mLocationClient.start();                                    // 开始定位
         mBaiduMap.setMyLocationEnabled(true);
+
+
     }
 
-    private void initView(View v){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+    private void initView(View v){
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -51,14 +69,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavgationView = (NavigationView) findViewById(R.id.nav_view);
+        View view = mNavgationView.inflateHeaderView(R.layout.nav_header_main);
+        mNavHeadLinearlayout =  view.findViewById(R.id.nav_head_layout);
+        Log.d(GlobleVariable.TAG + TAG,"mNavHeadLinearlayout = " + mNavHeadLinearlayout);
+        mNavHeadLinearlayout.setOnClickListener(this);
+        mNavgationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -68,6 +90,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d(GlobleVariable.TAG + TAG,"enter onclick  " );
+        switch (v.getId()){
+            case R.id.nav_head_layout:
+                Log.d(GlobleVariable.TAG + TAG,"enter nav_head_laoyout" );
+
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
         }
     }
 
@@ -192,8 +227,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             float radius = location.getRadius();             //获取定位精度，默认值为0.0f
             String coorType = location.getCoorType();        //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准
             int errorCode = location.getLocType();           //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
-            Log.d(TAG,"latitude = " + latitude + "\n longitude =  " + longitude + "\n radius = " + radius
-                    +"\n " + location.getCountry() + location.getProvince() + location.getCity() + location.getDistrict() + location.getStreet());
+//            Log.d(GlobleVariable.TAG + TAG,"latitude = " + latitude + "\n longitude =  " + longitude + "\n radius = " + radius
+//                    +"\n " + location.getCountry() + location.getProvince() + location.getCity() + location.getDistrict() + location.getStreet());
         }
     }
 

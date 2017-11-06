@@ -7,4 +7,5 @@
     <color name="color_login_button_bg">#54BA42</color>
     <color name="color_login_button_pressed_bg">#9983CC39</color>
     <color name="color_login_theme">#54BA42</color>
+    <color name="head_pic_stroke">#ff0000</color>
 </resources>

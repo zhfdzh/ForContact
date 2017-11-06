@@ -9,6 +9,9 @@ import android.view.*;
 import android.widget.*;
 
 import com.example.zhf.forcontact.util.*;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.SendAuth;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener,TextWatcher{
@@ -21,6 +24,9 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
     private ImageView   mWechatLogin;
     private ImageView   mWeiboLogin;
     private SharedPreferences mSharepreferenced;
+
+    private static final String APP_ID="你的appid";
+    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
         initView();
 
         setLoginListener();
+
+        regToWx();                      //注册微信
     }
     private void initView() {
         mUserName = findViewById(R.id.userName);
@@ -66,7 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
 
     @Override
     public void onClick(View v) {
-        Log.d("LoginActivity","enter onClick");
+        Log.d(GlobleVariable.TAG + "LoginActivity","enter onClick");
 
         switch(v.getId()){
             case R.id.app_login:
@@ -80,15 +88,24 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
                         Toast.makeText(this,"密码长度不能低于6位",Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Log.d("LoginActivity","user: "+ user + " --- pass: " + pass);
+                    Log.d(GlobleVariable.TAG + "LoginActivity","user: "+ user + " --- pass: " + pass);
                     UserLoginTask loginTask = new UserLoginTask(user,pass);
                     loginTask.execute();
                     mlogin.setEnabled(false);
                 }
                 break;
             case R.id.wecaht_login:
-
+                Log.d(GlobleVariable.TAG +"LoginActivity",  " enter wechat" );
+                /*if (!api.isWXAppInstalled()) {
+                    Toast.makeText(this,"您还未安装微信客户端",Toast.LENGTH_SHORT).show();
+                    return;
+                }*/
+                final SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo_test";
+                api.sendReq(req);
                 break;
+
             case R.id.weibo_login:
 
                 break;
@@ -96,6 +113,11 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
 
                 break;
         }
+    }
+
+    private void regToWx(){
+        api= WXAPIFactory.createWXAPI(this,APP_ID,true);
+        api.registerApp(APP_ID);
     }
 
     @Override
@@ -119,7 +141,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
 
     @Override
     public void afterTextChanged(Editable s) {
-        Log.d("LoginActivity","enter onEditorAction");
+        Log.d(GlobleVariable.TAG + "LoginActivity","enter onEditorAction");
 
         String user = mUserName.getText().toString();
         String pass = mPassword.getText().toString();
@@ -150,7 +172,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
 
         @Override
         protected Boolean doInBackground(Void[] params) {
-            Log.d("LoginActivity","enter doInBackground");
+            Log.d(GlobleVariable.TAG + "LoginActivity","enter doInBackground");
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -170,7 +192,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,Text
 
         @Override
         protected void onPostExecute(Boolean o) {       // 当后台操作结束时，此方法将会被调用
-            Log.d("LoginActivity","enter onPostExecute");
+            Log.d(GlobleVariable.TAG + "LoginActivity","enter onPostExecute");
             super.onPostExecute(o);
             if(o){
                 Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_LONG).show();
