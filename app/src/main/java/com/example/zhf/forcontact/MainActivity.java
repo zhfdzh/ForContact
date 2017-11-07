@@ -1,7 +1,10 @@
 package com.example.zhf.forcontact;
 
 import android.content.*;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.*;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.*;
 import android.support.v4.view.*;
 import android.support.v4.widget.*;
@@ -16,6 +19,7 @@ import com.baidu.location.*;
 import com.baidu.mapapi.*;
 import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.*;
+import com.example.zhf.forcontact.util.ActionBarUtil;
 import com.example.zhf.forcontact.util.GlobleVariable;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static String TAG = "mainactivity";
     private Toolbar mToolbar;
+    private ActionBar mActionbar;
     private NavigationView mNavgationView;
     private ImageView mNavHeadPic;
     private LinearLayout mNavHeadLinearlayout;
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private  DrawerLayout mDrawerLayout;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
+    private PopupWindow mPopupWindow;
+    private Button mNavRouteButton;
+    private LinearLayout mNavRoutelinearlayout;
 
     private boolean mIsFirstLocate = true;
     public LocationClient mLocationClient = null;
@@ -43,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SDKInitializer.initialize(getApplicationContext());               // 使用baidumap需要初始化
 
         setContentView(R.layout.activity_main);
-
+        settingActionBar();
         initView(null);
         mMapView = (MapView) findViewById(R.id.baiduMapView);            //获取地图控件引用
         mBaiduMap = mMapView.getMap();
@@ -51,21 +59,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mLocationClient.start();                                    // 开始定位
         mBaiduMap.setMyLocationEnabled(true);
 
-
     }
 
+    private void settingActionBar(){
+      /*  mActionbar = getSupportActionBar();
+        if(mActionbar != null){
+            mActionbar .setDisplayShowTitleEnabled(false);
+        }*/
 
-
-    private void initView(View v){
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        ActionBarUtil.setStatusBarUpper(this);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initView(View v){
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show(); */
+                mNavRoutelinearlayout = (LinearLayout) LayoutInflater.from(MainActivity.this).inflate(R.layout.nav_route_popwindow,null);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+                mPopupWindow = new PopupWindow(mNavRoutelinearlayout,ViewGroup.LayoutParams.MATCH_PARENT, Toolbar.LayoutParams.WRAP_CONTENT);
+                mPopupWindow.setFocusable(true);
+                mPopupWindow.setTouchable(true);
+                mPopupWindow.setOutsideTouchable(true);
+                mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ccffcc")));
+                mPopupWindow.showAtLocation(findViewById(R.id.drawer_layout),Gravity.TOP,50,50);
+                mNavRouteButton = mNavRoutelinearlayout.findViewById(R.id.start_nav_route);
+                mNavRouteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this,"搜索路线",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -81,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(GlobleVariable.TAG + TAG,"mNavHeadLinearlayout = " + mNavHeadLinearlayout);
         mNavHeadLinearlayout.setOnClickListener(this);
         mNavgationView.setNavigationItemSelectedListener(this);
+        mNavgationView.setItemTextColor(getResources().getColorStateList(R.drawable.nav_menu_item_selector, null));         // 设置菜单选中字体颜色
+        mNavgationView.setItemIconTintList(getResources().getColorStateList(R.drawable.nav_menu_item_selector, null));
     }
 
     @Override
@@ -134,8 +165,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_friend_list) {
+            Intent intent = new Intent();
+            intent.setClass(this,FriendListActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

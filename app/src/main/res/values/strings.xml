@@ -26,4 +26,12 @@
     <string name="third_account_login">第三方登录</string>
     <string name="back">返回</string>
     <string name="username_password_roles">0123456789abcdefghijklmnopqrstuvwxyzZXCVBNMLKJHGFDSAQWERTYUIOP</string>
+    <string name="nav_route_destination">终点</string>
+    <string name="nav_route_start">起点/我的位置</string>D
+    <string name="nav_route_button">路线</string>
+    <string name="my_location">我的位置</string>
+    <string name="current_location">当前位置</string>
+    <string name="my_friends">我的朋友</string>
+    <string name="friends_list">好友列表</string>
+    <string name="search">搜索</string>
 </resources>

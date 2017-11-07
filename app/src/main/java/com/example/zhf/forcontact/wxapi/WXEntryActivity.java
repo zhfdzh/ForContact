@@ -62,6 +62,7 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
              * 将你前面得到的AppID、AppSecret、code，拼接成URL 获取access_token等等的信息(微信)
              */
                 String get_access_token = getCodeRequest(code);
+
                 Log.d(GlobleVariable.TAG +"WXEntry"," WXEntryActivity: get_access_token = " + get_access_token);
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.post(get_access_token, new JsonHttpResponseHandler(){
@@ -77,7 +78,6 @@ public class WXEntryActivity extends AppCompatActivity implements IWXAPIEventHan
                                 String openid = response.getString("openid");
                                 String get_user_info_url = getUserInfo(access_token, openid);
                                 Log.d(GlobleVariable.TAG +"WXEntry"," onSuccess: get_user_info_url =  " + get_user_info_url );
-
                                 getUserInfo(get_user_info_url);
                             }
                         } catch (Exception e) {
