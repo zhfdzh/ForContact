@@ -12,6 +12,6 @@ public class ContactApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(getApplicationContext());      // 使用baidumap需要初始化
     }
 }

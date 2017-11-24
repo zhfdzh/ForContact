@@ -35,4 +35,25 @@
         app:backgroundTint="#fff"
         app:srcCompat="@drawable/nav_route"/>
 
+    <SlidingDrawer
+        android:id="@+id/slidingDrawer"
+        android:handle="@+id/slidingDrawer_handle"
+        android:content="@+id/slidingDrawer_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@id/slidingDrawer_handle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+        <ListView
+            android:id="@+id/slidingDrawer_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+    </SlidingDrawer>
+
 </android.support.design.widget.CoordinatorLayout>

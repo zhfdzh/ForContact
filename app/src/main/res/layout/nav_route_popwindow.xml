@@ -12,7 +12,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:layout_marginTop="10dp"
-                android:id="@+id/userName"
+                android:id="@+id/search_start"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
             <EditText
-                android:inputType="textPassword"
-                android:id="@+id/password"
+                android:id="@+id/search_end"
                 android:maxLength="15"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -41,17 +40,45 @@
                 android:background="@drawable/edittext_select"/>
         </RelativeLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="45dp">
+
         <Button
             android:clickable="true"
             android:enabled="true"
-            android:id="@+id/start_nav_route"
-            android:layout_width="match_parent"
+            android:id="@+id/route_drive"
+            android:layout_width="0dp"
             android:layout_height="45dp"
+            android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/login_button_style_gray"
-            android:text="@string/nav_route_button"/>
+            android:text="@string/drive"/>
+        <Button
+            android:clickable="true"
+            android:enabled="true"
+            android:id="@+id/route_walk"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/walk"/>
+        <Button
+            android:clickable="true"
+            android:enabled="true"
+            android:id="@+id/route_transit"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/transist"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

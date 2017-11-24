@@ -14,12 +14,31 @@ public class Friend {
     public String mLastestChatTime;
     public int mHeadIcon;
     public Location mLocation;       //保存位置信息
+    public double mLatitude;
+    public double mLongitude;
+
 
     public Friend(){}
     public Friend(String name, String time, int headIcon){
         this.mNickName = name;
         this.mLastestChatTime = time;
         this.mHeadIcon = headIcon;
+    }
+
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public void setLatitude(double mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
+    }
+
+    public void setLongitude(double mLongitude) {
+        this.mLongitude = mLongitude;
     }
 
     public Location getLocation() {

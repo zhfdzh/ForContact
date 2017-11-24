@@ -33,5 +33,11 @@
     <string name="current_location">当前位置</string>
     <string name="my_friends">我的朋友</string>
     <string name="friends_list">好友列表</string>
+    <string name="bound">周边</string>
+    <string name="nearby">附近</string>
+    <string name="cityIn">室内</string>
     <string name="search">搜索</string>
+    <string name="drive">开车</string>
+    <string name="walk">步行</string>
+    <string name="transist">公交</string>
 </resources>
